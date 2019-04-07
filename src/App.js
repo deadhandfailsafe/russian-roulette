@@ -24,9 +24,13 @@ class App extends Component {
   onGameStart = () => {
     let gunFired = this.pullTrigger();
     if (gunFired === true) {
-      alert(`Bang! -- Player Turn: ${this.state.playerTurn}, Player Alive: ${this.state.playerAlive}, Tom Alive: ${this.state.tomAlive}`)
+      if (this.state.playerTurn === true) {
+        alert(`Bang! -- You blew your brains out! You lose.`)
+      } else {
+        alert(`Bang! -- Tom blew his brains out! You win!`)
+      }
     } else {
-      alert(`Click. -- Player Turn: ${this.state.playerTurn}, Player Alive: ${this.state.playerAlive}, Tom Alive: ${this.state.tomAlive}`)
+      alert(`Click.`)
     }
   }
 

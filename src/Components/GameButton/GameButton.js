@@ -3,7 +3,7 @@ import './GameButton.css';
 
 const GameButton = ({ onGameStart }) => {
     return (
-        <button onClick={onGameStart}>Start Game</button>
+        <button onClick={onGameStart}>Take a Chance</button>
     );
 }
 
