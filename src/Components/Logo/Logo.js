@@ -4,8 +4,9 @@ import './Logo.css';
 
 const Logo = () => {
     return (
-        <div>
-            <img alt='logo' style={{paddingTop: '15px'}} src={revolver}/>
+        <div className='logo'>
+            <img alt='logo' src={revolver}/>
+            <h1>Russian Roulette</h1>
         </div>
     );
 }

@@ -4,8 +4,14 @@ import './Counters.css';
 const Counters = () => {
     return (
         <ul>
-            <li>Counter 1</li>
-            <li>Counter 2</li>
+            <li>
+                <h3>Player Deaths</h3>
+                <p>0</p>
+            </li>
+            <li>
+                <h3>Tom Deaths</h3>
+                <p>0</p>
+            </li>
         </ul>
     );
 }

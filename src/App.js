@@ -11,7 +11,7 @@ import './App.css';
 const initialState = {
   playerAlive: true,
   tomAlive: true,
-  playerTurn: true,
+  playerTurn: true, // Player always goes first :)
 }
 
 class App extends Component {
