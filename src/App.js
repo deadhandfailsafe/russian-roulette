@@ -9,9 +9,8 @@ import './App.css';
 
 // Initialized states for the game
 const initialState = {
-  playerAlive: true,
-  tomAlive: true,
   playerTurn: true, // Player always goes first :)
+  isGameState: 0, // Having a starting state before the back and forth in the game
 }
 
 class App extends Component {
@@ -22,7 +21,9 @@ class App extends Component {
 
   // Plays the game
   onGameStart = () => {
+    // Find out if the gun is destined to fire
     let gunFired = this.pullTrigger();
+    // If it is, figure out who lost, if not - "click"
     if (gunFired === true) {
       if (this.state.playerTurn === true) {
         alert(`Bang! -- You blew your brains out! You lose.`)
@@ -31,6 +32,18 @@ class App extends Component {
       }
     } else {
       alert(`Click.`)
+    }
+    // Change the game state according to whether the game started or not and who's turn it is
+    switch (this.state.isGameState) {
+      case 0:
+      case 1:
+        this.setState({isGameState: 2});
+        break;
+      case 2:
+        this.setState({isGameState: 1});
+        break;
+      default:
+        break;
     }
   }
 
@@ -46,12 +59,6 @@ class App extends Component {
   pullTrigger = () => {
     let revolver = this.setupRevolver();
     if (revolver[0] === 1) {
-      // Checks who to kill
-      if (this.state.playerTurn === true) {
-        this.setState({playerAlive: false});
-      } else {
-        this.setState({tomAlive: false});
-      }
       return true;
     } else {
       // Next person's turn
@@ -69,7 +76,7 @@ class App extends Component {
       <React.Fragment>
         <Counters />
         <Logo />
-        <GameButton onGameStart={this.onGameStart} />
+        <GameButton onGameStart={this.onGameStart} isGameState={this.state.isGameState} />
       </React.Fragment>
     );
   }
