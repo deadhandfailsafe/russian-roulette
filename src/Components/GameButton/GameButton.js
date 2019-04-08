@@ -1,23 +1,23 @@
 import React from 'react';
 import './GameButton.css';
 
-const GameButton = ({ onGameStart, isGameState }) => {
+const GameButton = ({ onGameStep, isGameState }) => {
     switch (isGameState) {
         case 1:
             return (
-                <button className='buttonTurnPlayer' onClick={onGameStart}>Your Turn</button>
+                <button className='buttonTurnPlayer' onClick={onGameStep}>Your Turn</button>
             );
         case 2:
             return (
-                <button className='buttonTurnTom' onClick={onGameStart}>Tom's Turn</button>
+                <button className='buttonTurnTom' onClick={onGameStep}>Tom's Turn</button>
             );
         case 3:
             return (
-                <button className='buttonAgain' onClick={onGameStart}>Play Again?</button>
+                <button className='buttonAgain' onClick={onGameStep}>Play Again?</button>
             );
         default:
             return (
-                <button className='buttonStart' onClick={onGameStart}>Start the Game</button>
+                <button className='buttonStart' onClick={onGameStep}>Start the Game</button>
             );
     }
 }

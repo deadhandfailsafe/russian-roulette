@@ -20,7 +20,7 @@ class App extends Component {
   }
 
   // Plays the game
-  onGameStart = () => {
+  onGameStep = () => {
     // Do a Play Again check first
     if (this.state.isGameState === 3) {
       this.setState({ isGameState: 0 });
@@ -86,7 +86,7 @@ class App extends Component {
       <React.Fragment>
         <Counters />
         <Logo />
-        <GameButton onGameStart={this.onGameStart} isGameState={this.state.isGameState} />
+        <GameButton onGameStep={this.onGameStep} isGameState={this.state.isGameState} />
       </React.Fragment>
     );
   }
