@@ -23,7 +23,7 @@ class App extends Component {
   onGameStep = () => {
     // Do a Play Again check first
     if (this.state.isGameState === 3) {
-      this.setState({ isGameState: 0 });
+      this.setState({ isGameState: 0, playerTurn: true });
       return;
     }
 
