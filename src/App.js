@@ -10,8 +10,8 @@ import './App.css';
 // Initialized states for the game
 const initialState = {
   playerTurn: true, // Player always goes first :)
-  isGameState: 0, // Having a starting state before the back and forth in the game
-}
+  isGameState: 0 // Having a starting state before the back and forth in the game
+};
 
 class App extends Component {
   constructor() {
@@ -40,7 +40,7 @@ class App extends Component {
       // Set game to a play again state.
       this.setState({ isGameState: 3 });
     } else {
-      alert(`Click.`)
+      alert(`Click.`);
       // Change the game state according to whether the game started or not and who's turn it is
       switch (this.state.isGameState) {
         case 0:
@@ -54,8 +54,7 @@ class App extends Component {
           break;
       }
     }
-
-  }
+  };
 
   // Creates a revolver with 6 chambers in the cylinder, and one round loaded randomly.
   setupRevolver = () => {
@@ -63,7 +62,7 @@ class App extends Component {
     let chamberSelection = Random.int(0, 5);
     revolverChambers[chamberSelection] = 1;
     return revolverChambers;
-  }
+  };
 
   // Simple check to see if the chamber is loaded upon trigger pull. If it is, game is over win/loss.
   pullTrigger = () => {
@@ -79,14 +78,17 @@ class App extends Component {
       }
       return false;
     }
-  }
+  };
 
   render() {
     return (
       <React.Fragment>
         <Counters />
         <Logo />
-        <GameButton onGameStep={this.onGameStep} isGameState={this.state.isGameState} />
+        <GameButton
+          onGameStep={this.onGameStep}
+          isGameState={this.state.isGameState}
+        />
       </React.Fragment>
     );
   }

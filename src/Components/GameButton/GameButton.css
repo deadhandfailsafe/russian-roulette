@@ -1,34 +1,34 @@
 button {
-    width: 10rem;
-    justify-self: center;
-    border: none;
-    padding: 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    border-radius: 6px;
+  width: 10rem;
+  justify-self: center;
+  border: none;
+  padding: 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  border-radius: 6px;
 }
 
 .buttonStart {
-    background-color: rgb(151, 192, 55);
-    box-shadow: 0 6px rgb(91, 116, 33);
-    color: #111;
+  background-color: rgb(151, 192, 55);
+  box-shadow: 0 6px rgb(91, 116, 33);
+  color: #111;
 }
 
 .buttonTurnTom {
-    background-color: rgb(218, 169, 36);
-    box-shadow: 0 6px rgb(143, 111, 25);
-    color: #111;
+  background-color: rgb(218, 169, 36);
+  box-shadow: 0 6px rgb(143, 111, 25);
+  color: #111;
 }
 
 .buttonTurnPlayer {
-    background-color: rgb(202, 80, 43);
-    box-shadow: 0 6px rgb(121, 48, 26);
-    color: #111;
+  background-color: rgb(202, 80, 43);
+  box-shadow: 0 6px rgb(121, 48, 26);
+  color: #111;
 }
 
 .buttonAgain {
-    background-color: rgb(43, 152, 202);
-    box-shadow: 0 6px rgb(24, 85, 114);
-    color: #111;
+  background-color: rgb(43, 152, 202);
+  box-shadow: 0 6px rgb(24, 85, 114);
+  color: #111;
 }
