@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import Random from 'random';
 
 import Counters from './Components/Counters/Counters';
@@ -7,97 +7,89 @@ import GameButton from './Components/GameButton/GameButton';
 
 import './App.css';
 
-// TODO: Replace with new hooks
-// Make the styles actually look nice
+// TODO: Make the styles actually look nice
 
-// Initialized states for the game
-const initialState = {
-  playerTurn: true, // Player always goes first :)
-  isGameState: 0 // Having a starting state before the back and forth in the game
+// Plays the game
+const onGameStep = (isGameState, setGameState, playerTurn, setPlayerTurn) => {
+  // Do a Play Again check first
+  if (isGameState === 3) {
+    setGameState(0);
+    setPlayerTurn(true);
+    return;
+  }
+
+  // Find out if the gun is destined to fire
+  let gunFired = pullTrigger(playerTurn, setPlayerTurn);
+
+  // If it is, figure out who lost, if not - "click"
+  if (gunFired === true) {
+    if (playerTurn === true) {
+      alert(`Bang! -- You lose.`);
+    } else {
+      alert(`Bang! -- You win!`);
+    }
+    // Set game to a play again state.
+    setGameState(3);
+  } else {
+    alert(`Click.`);
+    // Change the game state according to whether the game started or not and who's turn it is
+    switch (isGameState) {
+      case 0:
+      case 1:
+        setGameState(2);
+        break;
+      case 2:
+        setGameState(1);
+        break;
+      default:
+        break;
+    }
+  }
 };
 
-class App extends Component {
-  constructor() {
-    super();
-    this.state = initialState;
-  }
+// Creates a revolver with 6 chambers in the cylinder, and one round loaded randomly.
+// This follows standard rules where one round is loaded into one of six chambers, and the cylinder is spun each time before pulling the trigger.
+const setupRevolver = () => {
+  let revolverChambers = [0, 0, 0, 0, 0, 0];
+  let chamberSelection = Random.int(0, 5);
+  revolverChambers[chamberSelection] = 1;
+  return revolverChambers;
+};
 
-  // Plays the game
-  onGameStep = () => {
-    // Do a Play Again check first
-    if (this.state.isGameState === 3) {
-      this.setState({ isGameState: 0, playerTurn: true });
-      return;
-    }
+// TODO: Create functions for different rule variants.
 
-    // Find out if the gun is destined to fire
-    let gunFired = this.pullTrigger();
-
-    // If it is, figure out who lost, if not - "click"
-    if (gunFired === true) {
-      if (this.state.playerTurn === true) {
-        alert(`Bang! -- You lose.`);
-      } else {
-        alert(`Bang! -- You win!`);
-      }
-      // Set game to a play again state.
-      this.setState({ isGameState: 3 });
+// Simple check to see if the chamber is loaded upon trigger pull. If it is, game is over win/loss.
+const pullTrigger = (playerTurn, setPlayerTurn) => {
+  let revolver = setupRevolver();
+  if (revolver[0] === 1) {
+    return true;
+  } else {
+    // Next person's turn
+    if (playerTurn === true) {
+      setPlayerTurn(false);
     } else {
-      alert(`Click.`);
-      // Change the game state according to whether the game started or not and who's turn it is
-      switch (this.state.isGameState) {
-        case 0:
-        case 1:
-          this.setState({ isGameState: 2 });
-          break;
-        case 2:
-          this.setState({ isGameState: 1 });
-          break;
-        default:
-          break;
-      }
+      setPlayerTurn(true);
     }
-  };
-
-  // Creates a revolver with 6 chambers in the cylinder, and one round loaded randomly.
-  // This follows standard rules where one round is loaded into one of six chambers, and the cylinder is spun each time before pulling the trigger.
-  setupRevolver = () => {
-    let revolverChambers = [0, 0, 0, 0, 0, 0];
-    let chamberSelection = Random.int(0, 5);
-    revolverChambers[chamberSelection] = 1;
-    return revolverChambers;
-  };
-
-  // TODO: Create functions for different rule variants.
-
-  // Simple check to see if the chamber is loaded upon trigger pull. If it is, game is over win/loss.
-  pullTrigger = () => {
-    let revolver = this.setupRevolver();
-    if (revolver[0] === 1) {
-      return true;
-    } else {
-      // Next person's turn
-      if (this.state.playerTurn === true) {
-        this.setState({ playerTurn: false });
-      } else {
-        this.setState({ playerTurn: true });
-      }
-      return false;
-    }
-  };
-
-  render() {
-    return (
-      <React.Fragment>
-        <Counters />
-        <Logo />
-        <GameButton
-          onGameStep={this.onGameStep}
-          isGameState={this.state.isGameState}
-        />
-      </React.Fragment>
-    );
+    return false;
   }
+};
+
+function App() {
+  const [playerTurn, setPlayerTurn] = useState(true);
+  const [isGameState, setGameState] = useState(0);
+
+  return (
+    <React.Fragment>
+      <Counters />
+      <Logo />
+      <GameButton
+        onGameStep={() =>
+          onGameStep(isGameState, setGameState, playerTurn, setPlayerTurn)
+        }
+        isGameState={isGameState}
+      />
+    </React.Fragment>
+  );
 }
 
 export default App;
