@@ -7,6 +7,9 @@ import GameButton from './Components/GameButton/GameButton';
 
 import './App.css';
 
+// TODO: Replace with new hooks
+// Make the styles actually look nice
+
 // Initialized states for the game
 const initialState = {
   playerTurn: true, // Player always goes first :)
@@ -33,9 +36,9 @@ class App extends Component {
     // If it is, figure out who lost, if not - "click"
     if (gunFired === true) {
       if (this.state.playerTurn === true) {
-        alert(`Bang! -- You blew your brains out! You lose.`);
+        alert(`Bang! -- You lose.`);
       } else {
-        alert(`Bang! -- Tom blew his brains out! You win!`);
+        alert(`Bang! -- You win!`);
       }
       // Set game to a play again state.
       this.setState({ isGameState: 3 });
@@ -57,12 +60,15 @@ class App extends Component {
   };
 
   // Creates a revolver with 6 chambers in the cylinder, and one round loaded randomly.
+  // This follows standard rules where one round is loaded into one of six chambers, and the cylinder is spun each time before pulling the trigger.
   setupRevolver = () => {
     let revolverChambers = [0, 0, 0, 0, 0, 0];
     let chamberSelection = Random.int(0, 5);
     revolverChambers[chamberSelection] = 1;
     return revolverChambers;
   };
+
+  // TODO: Create functions for different rule variants.
 
   // Simple check to see if the chamber is loaded upon trigger pull. If it is, game is over win/loss.
   pullTrigger = () => {
