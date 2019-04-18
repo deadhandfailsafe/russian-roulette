@@ -85,8 +85,7 @@ const pullTrigger = (playerTurn, setPlayerTurn) => {
 
 const onGameEnd = () => {
   fetch('https://still-scrubland-60760.herokuapp.com/lose', {
-    method: 'put',
-    headers: { 'Content-Type': 'application/json' }
+    method: 'put'
   });
 };
 
@@ -102,7 +101,7 @@ function App() {
     fetch('https://still-scrubland-60760.herokuapp.com/')
       .then(response => response.json())
       .then(data => {
-        setDeaths(data.playerDeaths);
+        setDeaths(data);
       });
   });
 
