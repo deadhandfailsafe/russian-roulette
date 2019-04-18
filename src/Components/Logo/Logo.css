@@ -7,3 +7,6 @@ img {
     justify-self: center;
 }
 
+p, h1 {
+    text-align: center;
+}
