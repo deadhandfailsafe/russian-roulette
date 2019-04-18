@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Random from 'random';
 
 import Counters from './Components/Counters/Counters';
@@ -8,7 +8,6 @@ import GameButton from './Components/GameButton/GameButton';
 import './App.css';
 
 // TODO: Make the styles actually look nice
-// Replace alerts with header render
 // Make game state/button changing more clean
 
 // Plays the game
@@ -34,6 +33,7 @@ const onGameStep = (
   if (gunFired === true) {
     if (playerTurn === true) {
       setResult('You pull the trigger... Bang! -- You lose.');
+      onGameEnd();
     } else {
       setResult('Tom pulls the trigger... Bang! -- You win!');
     }
@@ -83,16 +83,32 @@ const pullTrigger = (playerTurn, setPlayerTurn) => {
   }
 };
 
+const onGameEnd = () => {
+  fetch('https://still-scrubland-60760.herokuapp.com/lose', {
+    method: 'put',
+    headers: { 'Content-Type': 'application/json' }
+  });
+};
+
 function App() {
   const [playerTurn, setPlayerTurn] = useState(true);
   const [isGameState, setGameState] = useState(0);
   const [actionResult, setResult] = useState(
     'Dare you face Tortilla Tom in a game?'
   );
+  const [countDeaths, setDeaths] = useState(0);
+
+  useEffect(() => {
+    fetch('https://still-scrubland-60760.herokuapp.com/')
+      .then(response => response.json())
+      .then(data => {
+        setDeaths(data.playerDeaths);
+      });
+  });
 
   return (
     <React.Fragment>
-      <Counters />
+      <Counters countDeaths={countDeaths} />
       <Logo actionResult={actionResult} />
       <GameButton
         onGameStep={() =>

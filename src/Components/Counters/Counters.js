@@ -1,12 +1,11 @@
 import React from 'react';
 import './Counters.css';
 
-const Counters = () => {
-  let countPlayerDeaths = 1;
+const Counters = ({ countDeaths }) => {
   return (
     <div className="death-count">
       <h3>Player Deaths</h3>
-      <p>{countPlayerDeaths}</p>
+      <p>{countDeaths}</p>
     </div>
   );
 };
