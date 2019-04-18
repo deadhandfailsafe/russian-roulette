@@ -8,13 +8,22 @@ import GameButton from './Components/GameButton/GameButton';
 import './App.css';
 
 // TODO: Make the styles actually look nice
+// Replace alerts with header render
+// Make game state/button changing more clean
 
 // Plays the game
-const onGameStep = (isGameState, setGameState, playerTurn, setPlayerTurn) => {
+const onGameStep = (
+  isGameState,
+  setGameState,
+  playerTurn,
+  setPlayerTurn,
+  setResult
+) => {
   // Do a Play Again check first
   if (isGameState === 3) {
     setGameState(0);
     setPlayerTurn(true);
+    setResult('Dare you face Tortilla Tom in a game?');
     return;
   }
 
@@ -24,14 +33,14 @@ const onGameStep = (isGameState, setGameState, playerTurn, setPlayerTurn) => {
   // If it is, figure out who lost, if not - "click"
   if (gunFired === true) {
     if (playerTurn === true) {
-      alert(`Bang! -- You lose.`);
+      setResult('You pull the trigger... Bang! -- You lose.');
     } else {
-      alert(`Bang! -- You win!`);
+      setResult('Tom pulls the trigger... Bang! -- You win!');
     }
     // Set game to a play again state.
     setGameState(3);
   } else {
-    alert(`Click.`);
+    setResult('Click.');
     // Change the game state according to whether the game started or not and who's turn it is
     switch (isGameState) {
       case 0:
@@ -77,14 +86,23 @@ const pullTrigger = (playerTurn, setPlayerTurn) => {
 function App() {
   const [playerTurn, setPlayerTurn] = useState(true);
   const [isGameState, setGameState] = useState(0);
+  const [actionResult, setResult] = useState(
+    'Dare you face Tortilla Tom in a game?'
+  );
 
   return (
     <React.Fragment>
       <Counters />
-      <Logo />
+      <Logo actionResult={actionResult} />
       <GameButton
         onGameStep={() =>
-          onGameStep(isGameState, setGameState, playerTurn, setPlayerTurn)
+          onGameStep(
+            isGameState,
+            setGameState,
+            playerTurn,
+            setPlayerTurn,
+            setResult
+          )
         }
         isGameState={isGameState}
       />
